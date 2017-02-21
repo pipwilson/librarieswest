@@ -4,11 +4,11 @@ require 'openssl'
 require 'json'
 require 'dotenv/load'
 
-# Hello
+# This class handles communication with the LibrariesWest mobile app server component
 class LibrariesWest
 
   def initialize
-    @url = URI('https://m.solus.co.uk/catalogue/CatService.asmx/CatLogin?rnd=' + '234234234') #rand(999999999).to_s)
+    @url = URI('https://m.solus.co.uk/catalogue/CatService.asmx/CatLogin?rnd=' + '234234234') #rand(2**32).to_s)
     @http = Net::HTTP.new(@url.host, @url.port)
     @http.use_ssl = true
     @http.verify_mode = OpenSSL::SSL::VERIFY_NONE
