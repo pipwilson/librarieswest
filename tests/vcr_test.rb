@@ -9,14 +9,23 @@ VCR.configure do |config|
 end
 
 class VCRTest < Test::Unit::TestCase
-  def test_example_dot_com
-    VCR.use_cassette('synopsis') do
-      # response = Net::HTTP.get_response(URI('http://www.iana.org/domains/reserved'))
+  def test_authentication
+    VCR.use_cassette('authentication') do
       library = LibrariesWest.new
       response = library.send_authentication
       assert_match(/Code39A/, response)
     end
   end
+
+    def test_fetch_loans
+    VCR.use_cassette('loans') do
+      library = LibrariesWest.new
+      library.send_authentication
+      response = library.fetch_loans
+      assert_match(/<loans>/, response)
+    end
+  end
+
 end
 
 
