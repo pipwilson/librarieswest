@@ -13,9 +13,9 @@ VCR.configure do |config|
   config.hook_into :webmock # or :fakeweb
 
   # what should we name our cassettes in each test?
-  config.around_http_request(-> (req) { req.uri =~ /m.solus.co.uk/ }) do |request|
+  config.around_http_request do |request|
     path = URI(request.uri).path
-    cassette_name = path.slice(path.rindex('/')+1, path.length)
+    cassette_name = path.slice(path.rindex('/') + 1, path.length)
     VCR.use_cassette(cassette_name, &request)
   end
 end
